@@ -28,7 +28,6 @@ config <- gen_config(
 )
 
 dfs <- scrape_tableau(config)
-}
 ```
 
 > NOTE: I haven't tested this on many dashboards, so have no idea if some dashboards have different setups. I make no guarantees.
