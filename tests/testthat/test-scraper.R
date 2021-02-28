@@ -29,7 +29,7 @@ if(FALSE){
   saveRDS(url, "tests/testthat/data/url.RDS")
   saveRDS(resp, "tests/testthat/data/httr_post_resp.RDS")
 
-  raw_data <- download_raw(CONFIG)
+  raw_data <- download_data(CONFIG)
   saveRDS(raw_data, file="tests/testthat/data/raw_output.RDS")
 
   res <- extract_all_dfs(raw_data)
@@ -37,7 +37,7 @@ if(FALSE){
 }
 
 
-test_that("download_raw", {
+test_that("download_data", {
   config <- list(
     host_url="https://healthviz.phila.gov/",
     path="t/PublicHealth/views/COVIDVaccineDashboard/COVID_Vaccine",
@@ -53,7 +53,7 @@ test_that("download_raw", {
   res <- mockr::with_mock(
     read_html=function(x){expect_equal(x, req); body},
     POST=function(x, ...){expect_equal(x, url); resp},
-    res <- download_raw(config)
+    res <- download_data(config)
   )
   expect_equal(res, expected_res)
 })

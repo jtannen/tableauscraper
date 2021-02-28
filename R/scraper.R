@@ -7,7 +7,13 @@ library(dplyr)
 read_html <- function(...) xml2::read_html(...)
 POST <- function(...) httr::POST(...)
 
-download_raw <- function(config){
+download_data <- function(config){
+  session_json <- fetch_session_info(config)
+  data <- fetch_data_json(config$host_url, session_json)
+  return(data)
+}
+
+fetch_session_info <- function(config){
   req <- sprintf("%s/%s?%s", config$host_url, config$path, config$req_url)
   body <- read_html(req)
 
@@ -15,19 +21,31 @@ download_raw <- function(config){
     rvest::html_nodes("textarea#tsConfigContainer") %>%
     rvest::html_text()
 
-  json <- rjson::fromJSON(data)
+  return(rjson::fromJSON(data))
+}
 
+fetch_data_json <- function(host_url, session_json){
   url <- httr::modify_url(
-    config$host_url,
-    path=paste0(json$vizql_root, "/bootstrapSession/sessions/", json$sessionid)
+    host_url,
+    path=paste0(
+      session_json$vizql_root,
+      "/bootstrapSession/sessions/",
+      session_json$sessionid
+    )
   )
 
-  resp <- POST(url, body = list(sheet_id = json$sheetId), encode = "form")
+  resp <- POST(
+    url,
+    body = list(sheet_id = session_json$sheetId),
+    encode = "form"
+  )
   raw_download <- httr::content(resp, "text")
-  extract <- stringr::str_match(raw_download, "\\d+;(\\{.*\\})\\d+;(\\{.*\\})")
+  extract <- stringr::str_match(
+    raw_download,
+    "\\d+;(\\{.*\\})\\d+;(\\{.*\\})"
+  )
   data_json <- extract[1,3]
-  data <- rjson::fromJSON(data_json)
-  return(data)
+  return(rjson::fromJSON(data_json))
 }
 
 get_worksheets <- function(data){
@@ -119,7 +137,7 @@ extend_frames <- function(frameData){
 }
 
 scrape_tableau <- function(config){
-  data <- download_raw(config)
+  data <- download_data(config)
   dfs <- extract_all_dfs(data)
   return(dfs)
 }
