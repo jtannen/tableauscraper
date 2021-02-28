@@ -1,4 +1,4 @@
-library(tableauscrape)
+library(tableauscraper)
 
 # site <- "https://www.phila.gov/programs/coronavirus-disease-2019-covid-19/vaccines/data/"
 # html <- xml2::read_html(site)

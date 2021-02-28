@@ -1,4 +1,4 @@
-Package: tableauscrape
+Package: tableauscraper
 Title: Scrape data from a Tableau dashboard.
 Version: 0.0.0.9000
 Authors@R: 

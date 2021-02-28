@@ -1,4 +1,4 @@
-library(tableauscrape)
+library(tableauscraper)
 
 
 ## SET UP DATA
