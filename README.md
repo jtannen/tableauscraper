@@ -20,7 +20,7 @@ devtools::install_github("https://github.com/jtannen/tableauscraper")
 and then (2) download and extract the data:
 
 ``` r
-library(tableascraper)
+library(tableauscraper)
 
 ## optionally, save this config.
 config <- gen_config(
