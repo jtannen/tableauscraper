@@ -4,7 +4,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of tableauscraper is to fetch the data behind a Tableau Dashboard.
+Fetch the data behind a Tableau Dashboard.
 
 ## Installation
 

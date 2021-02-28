@@ -6,6 +6,12 @@ library(dplyr)
 read_html <- function(...) xml2::read_html(...)
 POST <- function(...) httr::POST(...)
 
+scrape_tableau <- function(config){
+  data <- download_data(config)
+  dfs <- extract_all_dfs(data)
+  return(dfs)
+}
+
 download_data <- function(config){
   session_json <- fetch_session_info(config)
   data <- fetch_data_json(config$host_url, session_json)
@@ -52,7 +58,7 @@ get_worksheets <- function(data){
 }
 
 extract_all_dfs <- function(data){
-  worksheets = names(get_worksheets(data))
+  worksheets <- names(get_worksheets(data))
 
   res <- list()
   for(w in worksheets){
@@ -133,10 +139,4 @@ extend_frames <- function(frameData){
   }
 
   lapply(frameData, extend_frame)
-}
-
-scrape_tableau <- function(config){
-  data <- download_data(config)
-  dfs <- extract_all_dfs(data)
-  return(dfs)
 }
