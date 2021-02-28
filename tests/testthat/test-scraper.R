@@ -11,8 +11,8 @@ if(FALSE){
 
   req <- sprintf("%s/%s?%s", config$host_url, config$path, config$req_url)
   body <- xml2::read_html(req)
-  saveRDS(req, "tests/testthat/req.RDS")
-  xml2::write_xml(body, file="tests/testthat/body.xml")
+  saveRDS(req, "tests/testthat/data/req.RDS")
+  xml2::write_xml(body, file="tests/testthat/data/body.xml")
 
   data <- body %>%
     rvest::html_nodes("textarea#tsConfigContainer") %>%
@@ -26,14 +26,14 @@ if(FALSE){
   )
 
   resp <- httr::POST(url, body = list(sheet_id = json$sheetId), encode = "form")
-  saveRDS(url, "tests/testthat/url.RDS")
-  saveRDS(resp, "tests/testthat/httr_post_resp.RDS")
+  saveRDS(url, "tests/testthat/data/url.RDS")
+  saveRDS(resp, "tests/testthat/data/httr_post_resp.RDS")
 
   raw_data <- download_raw(CONFIG)
-  saveRDS(raw_data, file="tests/testthat/raw_output.RDS")
+  saveRDS(raw_data, file="tests/testthat/data/raw_output.RDS")
 
   res <- extract_all_dfs(raw_data)
-  saveRDS(res, "tests/testthat/res.RDS")
+  saveRDS(res, "tests/testthat/data/res.RDS")
 }
 
 
@@ -44,11 +44,11 @@ test_that("download_raw", {
     req_url=":embed=y&:showVizHome=no&:host_url=https%3A%2F%2Fhealthviz.phila.gov%2F&:embed_code_version=3&:tabs=no&:toolbar=no&:alerts=no&:showShareOptions=false&:showAskData=false&:showAppBanner=false&:isGuestRedirectFromVizportal=y&:display_spinner=no&:loadOrderID=0"
   )
 
-  req <- readRDS("req.RDS")
+  req <- readRDS("data/req.RDS")
   body <- xml2::read_html(file("body.xml"))
-  url <- readRDS("url.RDS")
-  resp <- readRDS("httr_post_resp.RDS")
-  expected_res <- readRDS("raw_output.RDS")
+  url <- readRDS("data/url.RDS")
+  resp <- readRDS("data/httr_post_resp.RDS")
+  expected_res <- readRDS("data/raw_output.RDS")
 
   res <- mockr::with_mock(
     read_html=function(x){expect_equal(x, req); body},
@@ -62,8 +62,8 @@ test_that("download_raw", {
 test_that("extract_all_dfs", {
   ## TODO: Explore snapshot testing
 
-  raw_data <- readRDS("raw_output.RDS")
-  expected_res <- readRDS("res.RDS")
+  raw_data <- readRDS("data/raw_output.RDS")
+  expected_res <- readRDS("data/res.RDS")
 
   expect_equal(extract_all_dfs(raw_data), expected_res)
 
@@ -76,9 +76,9 @@ test_that("scrape_tableau integration", {
     req_url=":embed=y&:showVizHome=no&:host_url=https%3A%2F%2Fhealthviz.phila.gov%2F&:embed_code_version=3&:tabs=no&:toolbar=no&:alerts=no&:showShareOptions=false&:showAskData=false&:showAppBanner=false&:isGuestRedirectFromVizportal=y&:display_spinner=no&:loadOrderID=0"
   )
 
-  expected_res <- readRDS("res.RDS")
+  expected_res <- readRDS("data/res.RDS")
   body <- xml2::read_html(file("body.xml"))
-  resp <- readRDS("httr_post_resp.RDS")
+  resp <- readRDS("data/httr_post_resp.RDS")
 
   expect_equal(
     expected_res,
