@@ -1,6 +1,5 @@
 library(dplyr)
 
-## Adapted from the amazing https://stackoverflow.com/questions/64094560/how-do-i-scrape-tableau-data-from-website-into-r
 # req <- "https://healthviz.phila.gov/t/PublicHealth/views/COVIDVaccineDashboard/COVID_Vaccine?:embed=y&:showVizHome=no&:host_url=https%3A%2F%2Fhealthviz.phila.gov%2F&:embed_code_version=3&:tabs=no&:toolbar=no&:alerts=no&:showShareOptions=false&:showAskData=false&:showAppBanner=false&:isGuestRedirectFromVizportal=y&:display_spinner=no&:loadOrderID=0"
 
 # for Mocking
