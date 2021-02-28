@@ -1,15 +1,15 @@
 Package: tableauscrape
-Title: What the Package Does (One Line, Title Case)
+Title: Scrape data from a Tableau dashboard.
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Jonathan",
+           family = "Tannen",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+           email = "jonathan.tannen@gmail.com")
+Description: Scrapes data.frames from a Tableau dashboard. Includes helpers to generate the request, 
+	and then download and parse the data. Adapted from the amazing post at 
+	https://stackoverflow.com/questions/64094560/how-do-i-scrape-tableau-data-from-website-into-r
+License: use_mit_license()
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
