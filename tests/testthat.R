@@ -1,4 +1,4 @@
 library(testthat)
-library(tableauscrape)
+library(tableauscraper)
 
-test_check("tableauscrape")
+test_check("tableauscraper")
