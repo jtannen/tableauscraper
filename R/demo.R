@@ -1,6 +1,6 @@
 
 if(FALSE){
-  library(tableascraper)
+  library(tableauscraper)
   config <- gen_config(
     "https://www.phila.gov/programs/coronavirus-disease-2019-covid-19/vaccines/data/"
   )
