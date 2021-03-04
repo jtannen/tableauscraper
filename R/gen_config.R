@@ -25,7 +25,7 @@ gen_config <- function(site, which=1){
   obj_nodes <- xml2::xml_find_all(html, ".//object")
   tableau_nodes <- obj_nodes[xml2::xml_attr(obj_nodes, "class")=="tableauViz"]
 
-  if(length(tableau_nodes) > 1 & which==1) warning("More than one Tableau found. Using first.")
+  if(length(tableau_nodes) > 1 && which==1) warning("More than one Tableau found. Using first.")
   tableau_node <- tableau_nodes[which]
 
   attrs <- mapply(
