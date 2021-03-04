@@ -1,8 +1,25 @@
 # site <- "https://www.phila.gov/programs/coronavirus-disease-2019-covid-19/vaccines/data/"
 
+requireNamespace("dplyr")
+
 ## For Mocking
 read_html <- function(...) xml2::read_html(...)
 
+#' Generate a config from a site with a Tableau Dashboard.
+#'
+#' @param site The url of a site that has an embedded dashboard.
+#'
+#' @return A list of parameters to be used by `scrape_tableau()`.
+#' If the site has more than one dashboard, only the first is returned, with a warning.
+#' @examples
+#' \dontrun{
+#' config <- gen_config(
+#'   "https://www.phila.gov/programs/coronavirus-disease-2019-covid-19/vaccines/data/"
+#' )
+#' dfs <- scrape_tableau(config)
+#' }
+#'
+#' @export
 gen_config <- function(site){
   html <- read_html(site)
   obj_nodes <- xml2::xml_find_all(html, ".//object")
