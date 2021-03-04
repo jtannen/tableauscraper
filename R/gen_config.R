@@ -8,6 +8,7 @@ read_html <- function(...) xml2::read_html(...)
 #' Generate a config from a site with a Tableau Dashboard.
 #'
 #' @param site The url of a site that has an embedded dashboard.
+#' @param which If the site contains multiple dashboards, which one to use.
 #'
 #' @return A list of parameters to be used by `scrape_tableau()`.
 #' If the site has more than one dashboard, only the first is returned, with a warning.

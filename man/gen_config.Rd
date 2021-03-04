@@ -4,10 +4,12 @@
 \alias{gen_config}
 \title{Generate a config from a site with a Tableau Dashboard.}
 \usage{
-gen_config(site)
+gen_config(site, which = 1)
 }
 \arguments{
 \item{site}{The url of a site that has an embedded dashboard.}
+
+\item{which}{If the site contains multiple dashboards, which one to use.}
 }
 \value{
 A list of parameters to be used by \code{scrape_tableau()}.
